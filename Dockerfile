@@ -28,5 +28,6 @@ COPY --chown=node:node . .
 # Expose the port your app runs on
 EXPOSE 3000
 
+
 # Run the application in development mode
 CMD ["npm", "run", "dev"]
