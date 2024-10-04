@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}         # Use curly braces for variable substitution
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}     # Use curly braces for variable substitution
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db    
+    
+  app:
+    container_name: node_backend
+    image: node20                                       # Specify the image as 'node:20' (with a colon)
+    env_file: .env
+    ports:
+      - "3000:3000" 
+    environment:
+      - DB_HOST=mongodb_container
+      - DB_USER=${MONGODB_USER}                           # Use curly braces for variable substitution
+      - DB_PASSWORD=${MONGODB_PASSWORD}                   # Use curly braces for variable substitution
+      - DB_NAME=${MONGODB_DATABASE}                       # Use curly braces for variable substitution
+      - DB_PORT=27017                                    # Use curly braces for variable substitution
+    depends_on:
+      - mongodb_container                                  # Ensure MongoDB starts before the app
+  
+volumes:
+  mongodb_data_container:
