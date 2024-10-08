@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        nodejs 'Node.js 14.17.0'
+    }
     stages {
         stage('Checkout') {
             steps {
