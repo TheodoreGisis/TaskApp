@@ -1,23 +1,23 @@
 pipeline {
-    agent any
+    agent { docker { image 'node:latest' } }
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        stage('Test'){
-            steps{
+        stage('Test') {
+            steps {
                 echo "Hello from git"
             }
         }
-        stage('Install'){
-            steps{
+        stage('Install') {
+            steps {
                 sh 'npm install'
             }
         }
-        stage('Build'){
-            steps{
+        stage('Build') {
+            steps {
                 sh 'npm run build'
             }
         }
