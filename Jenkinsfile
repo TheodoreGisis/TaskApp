@@ -1,9 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Hello') {
+        stage('Checkout') {
             steps {
-                echo 'Hello, World!'
+                checkout scm
+            }
+        }
+        stage('Test'){
+            steps{
+                echo "Hello from git"
             }
         }
     }
