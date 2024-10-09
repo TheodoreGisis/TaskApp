@@ -5,7 +5,6 @@ pipeline {
     }
     tools {
         nodejs '22.9' 
-        docker 'docker'
     }
     stages {
         stage('Checkout') {
