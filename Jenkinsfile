@@ -6,7 +6,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS=credentials('teogisis-dockerhub')
     }
     tools {
-        nodejs '22.9' 
+        node '22.9' 
     }
     stages {
         stage('Checkout') {
