@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+        DOCKERHUB_CREDENTIALS=credentials('teogisis-dockerhub')
+    }
     tools {
         nodejs '22.9' 
     }
@@ -7,12 +10,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-            }
-        }
-        stage('Test'){
-            steps{
-                echo 'Building...'
-                sh 'npm install'
             }
         }
         stage('Build Docker Image') {
@@ -26,6 +23,12 @@ pipeline {
                     // Build the Docker image
                     sh "docker build -t ${imageName}:${imageTag} ."
                 }
+            }
+        }
+        stage('Login'){
+            steps{
+                echo 'Login to Dockerhub'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login --username "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
             }
         }
     }
